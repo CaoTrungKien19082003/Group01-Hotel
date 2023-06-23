@@ -1,0 +1,37 @@
+:root{
+    --blue: #25A9FF;
+    --blue_hover: #51BAFF;
+    --black: #000000;
+    
+}
+
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.h-font-1{
+    font-family: 'Share Tech Mono', sans-serif;
+}
+
+.h-font-2{
+    font-family: 'Poppins', cursive;
+}
+
+.btn-bg{
+    background-color: var(--blue);
+    border: 3px solid var(--blue);
+}
+
+.form{
+    margin: auto;
+    width: 60%;
+    border: 2px solid #030600;
+    border-radius: 25px;
+    padding: 25px 100px 50px;
+    position: fixed top 45px;
+}
+
+.login-form{
+    padding: 25px;
+    position: relative;
+}
