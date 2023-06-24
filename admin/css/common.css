@@ -1,37 +1,43 @@
 :root{
-    --blue: #25A9FF;
-    --blue_hover: #51BAFF;
-    --black: #000000;
-    
+    --blue: #0097FF;
+    --blue_hover: #5DBDFF;
 }
 
-*{
-    font-family: 'Times New Roman', Times, serif;
+* {
+    font-family: 'Times New Roman', sans-serif;
 }
 
 .h-font-1{
-    font-family: 'Share Tech Mono', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .h-font-2{
-    font-family: 'Poppins', cursive;
+    font-family: 'Merienda', cursive;
 }
 
-.btn-bg{
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+.custom-bg {
     background-color: var(--blue);
-    border: 3px solid var(--blue);
+    border: 2px solid var(--blue);
+    border-radius: 10px;
 }
 
-.form{
-    margin: auto;
-    width: 60%;
-    border: 2px solid #030600;
-    border-radius: 25px;
-    padding: 25px 100px 50px;
-    position: fixed top 45px;
+.custom-bg:hover {
+    background-color: var(--teal_hover);
+    border-color: var(--teal_hover);
 }
-
-.login-form{
-    padding: 25px;
-    position: relative;
+.h-line{
+    width: 150px;
+    margin: 0 auto;
+    height: 1.7px;
 }
