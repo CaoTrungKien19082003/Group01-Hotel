@@ -1,4 +1,11 @@
-
+<?php
+    require('inc/essentials.php');
+    require('inc/db.php');
+    session_start();
+    if((isset($_SESSION['Login']) && $_SESSION['Login']==true)){
+        redirecting('admin_profile.php');
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,24 +26,44 @@
     </style>
 </head>
 <body class='bg-light'>
-    <div class="login-form text-center rounded bg-white shadow overflow-none">
-        <form class="form">
+    <div class="login-form text-center rounded bg-black shadow overflow-none">
+        <form method="POST">
             <h4 class="bg-dark text-white py-4">Admin Login</h4>
             <div class="p-4">
                 <div class="mb-3">
-                    <input name="username" type="text" class="form-control shadow-none text-center h-font-1" placeholder="Enter Admin's Username"> 
+                    <input name="username" required type="text" class="form-control shadow-none text-center h-font-1" placeholder="Enter Admin's Username"> 
                 </div>
 
                 <div class="mb-4">              
-                    <input name="password" type="text" class="form-control shadow-none text-center h-font-1" placeholder="Enter Admin's Password">   
+                    <input name="password" required type="password" class="form-control shadow-none text-center h-font-1" placeholder="Enter Admin's Password">   
                 </div>
-
-                <div>
-                    <button name="login-button" class="btn h-font-2 text-black custom-bg shadow-none">Login</button>
-                </div>
+                <button name="login-button" type="submit" class="btn h-font-2 text-black custom-bg shadow-none">Login</button>
             </div>
         </form>
     </div>
+
+    <?php
+        if(isset($_POST['login-button'])){
+           
+            $frm_data=filter($_POST);
+            
+            $query="SELECT * FROM `admin_list` WHERE`username`=? AND `password`=?";
+            $values=[$frm_data['username'], $frm_data['password']];
+            
+            $res=select($query, $values, "ss");
+            if($res->num_rows==1){
+                $row=mysqli_fetch_assoc($res);
+                $_SESSION['Login']=true;
+                $_SESSION['ID']=$row['number'];
+                redirecting('admin_profile.php');
+               
+            }
+            else{
+                alert('error', 'Invalid username or password.');
+            }
+        }
+    ?>
+
     
     <?php require('inc/scripts.php'); ?>
 </body>

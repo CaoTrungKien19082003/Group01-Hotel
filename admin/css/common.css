@@ -1,6 +1,6 @@
 :root{
     --blue: #0097FF;
-    --blue_hover: #5DBDFF;
+    --blue_hover: #a0d9ff;
 }
 
 * {
@@ -33,11 +33,17 @@ input[type=number] {
 }
 
 .custom-bg:hover {
-    background-color: var(--teal_hover);
-    border-color: var(--teal_hover);
+    background-color: var(--blue_hover);
+    border-color: var(--blue_hover);
 }
 .h-line{
     width: 150px;
     margin: 0 auto;
     height: 1.7px;
+}
+
+.custom-alert{
+    position: fixed;
+    top: 25px;
+    right: 25px;
 }
