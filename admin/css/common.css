@@ -47,3 +47,25 @@ input[type=number] {
     top: 25px;
     right: 25px;
 }
+
+#admin-menu{
+    position: fixed;
+    height: 100%;
+}
+
+@media screen and (max-width: 993px){
+    #admin-menu{
+        width: 100%;
+        height: auto;
+    }
+
+    #content{
+        margin-top: 45px;
+    }
+}
+
+.custom-alert{
+    position: fixed;
+    top: 75px;
+    right: 30px;
+}

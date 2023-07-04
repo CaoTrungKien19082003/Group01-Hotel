@@ -3,7 +3,7 @@
     require('inc/db.php');
     session_start();
     if((isset($_SESSION['Login']) && $_SESSION['Login']==true)){
-        redirecting('admin_profile.php');
+        redirecting('dashboard.php');
     }
 ?>
 
@@ -42,6 +42,8 @@
         </form>
     </div>
 
+    <?php require('inc/scripts.php'); ?>
+
     <?php
         if(isset($_POST['login-button'])){
            
@@ -55,7 +57,7 @@
                 $row=mysqli_fetch_assoc($res);
                 $_SESSION['Login']=true;
                 $_SESSION['ID']=$row['number'];
-                redirecting('admin_profile.php');
+                redirecting('dashboard.php');
                
             }
             else{
@@ -65,6 +67,6 @@
     ?>
 
     
-    <?php require('inc/scripts.php'); ?>
+    
 </body>
 </html>
