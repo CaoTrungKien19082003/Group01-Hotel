@@ -9,7 +9,6 @@
         $res=select($q, $values, "i");
         $data=mysqli_fetch_assoc($res);
         $json_data=json_encode($data);
-
         echo $json_data;
     }
 
