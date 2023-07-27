@@ -1,6 +1,10 @@
 <?php
     require('inc/essentials.php');
     require('inc/db.php');
+    session_start();
+    if((isset($_SESSION['Login']) && $_SESSION['Login']==true)){
+        redirecting('dashboard.php');
+    }
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +26,7 @@
     </style>
 </head>
 <body class='bg-light'>
-    <div class="login-form text-center rounded bg-white shadow overflow-none">
+    <div class="login-form text-center rounded bg-black shadow overflow-none">
         <form method="POST">
             <h4 class="bg-dark text-white py-4">Admin Login</h4>
             <div class="p-4">
@@ -38,6 +42,8 @@
         </form>
     </div>
 
+    <?php require('inc/scripts.php'); ?>
+
     <?php
         if(isset($_POST['login-button'])){
            
@@ -48,15 +54,19 @@
             
             $res=select($query, $values, "ss");
             if($res->num_rows==1){
-                echo"Welcome back, admin!";
+                $row=mysqli_fetch_assoc($res);
+                $_SESSION['Login']=true;
+                $_SESSION['ID']=$row['number'];
+                redirecting('dashboard.php');
+               
             }
             else{
-                alert('error', 'Invalid username or password. Please try again.');
+                alert('error', 'Invalid username or password.');
             }
         }
     ?>
 
     
-    <?php require('inc/scripts.php'); ?>
+    
 </body>
 </html>
