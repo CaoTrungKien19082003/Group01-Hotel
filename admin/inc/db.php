@@ -2,7 +2,7 @@
     $hname='localhost';
     $uname='root';
     $pass='';
-    $db='hotel_admins';
+    $db='hotel_admin';
 
     $con=mysqli_connect($hname, $uname, $pass, $db);
     
@@ -39,6 +39,72 @@
 
         else{
             die("Failed to prepare - Select");
+        }
+    }
+
+    function selectAll($table){
+        $con=$GLOBALS['con'];
+        $res=mysqli_query($con, "SELECT * FROM $table");
+        return $res;
+    }
+
+    function update($sql, $values, $datatypes){
+        $con=$GLOBALS['con'];
+        if($stmt=mysqli_prepare($con, $sql)){
+            mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+            if (mysqli_stmt_execute($stmt)){
+                $res=mysqli_stmt_affected_rows($stmt);
+                mysqli_stmt_close($stmt);
+                return $res;
+            }
+            else{
+                mysqli_stmt_close($stmt);
+                die("Failed to execute - Update");
+            }
+        }
+
+        else{
+            die("Failed to prepare - Update");
+        }
+    }
+
+    function insert($sql, $values, $datatypes){
+        $con=$GLOBALS['con'];
+        if($stmt=mysqli_prepare($con, $sql)){
+            mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+            if (mysqli_stmt_execute($stmt)){
+                $res=mysqli_stmt_affected_rows($stmt);
+                mysqli_stmt_close($stmt);
+                return $res;
+            }
+            else{
+                mysqli_stmt_close($stmt);
+                die("Failed to execute - Insert");
+            }
+        }
+
+        else{
+            die("Failed to prepare - Insert");
+        }
+    }
+
+    function remove($sql, $values, $datatypes){
+        $con=$GLOBALS['con'];
+        if($stmt=mysqli_prepare($con, $sql)){
+            mysqli_stmt_bind_param($stmt, $datatypes, ...$values);
+            if (mysqli_stmt_execute($stmt)){
+                $res=mysqli_stmt_affected_rows($stmt);
+                mysqli_stmt_close($stmt);
+                return $res;
+            }
+            else{
+                mysqli_stmt_close($stmt);
+                die("Failed to execute - Delete");
+            }
+        }
+
+        else{
+            die("Failed to prepare - Delete");
         }
     }
 ?>
