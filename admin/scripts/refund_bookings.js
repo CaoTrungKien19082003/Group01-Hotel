@@ -4,8 +4,6 @@ function get_bookings(search=''){
 
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onload=function(){
-        
-        
         document.getElementById('booking_data').innerHTML=this.responseText;
     }
 

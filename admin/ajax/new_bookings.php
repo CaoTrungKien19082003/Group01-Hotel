@@ -20,8 +20,6 @@
             $table_data .="<b class='h-font-1'>No Data Found!</b>";
         }
 
-
-
         while($data=mysqli_fetch_assoc($res)){
             $date=date("d-m-Y", strtotime($data['datentime']));
             $checkin=date("d-m-Y", strtotime($data['check_in']));
