@@ -1,0 +1,7 @@
+{
+    "require": {
+        "sendinblue/api-v3-sdk": "8.4.2",
+        "getbrevo/brevo-php": "^1.0",
+        "mpdf/mpdf": "^6.1"
+    }
+}
