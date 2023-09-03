@@ -4,40 +4,7 @@
     adminLogin();
     require('../../vendor/autoload.php');
     date_default_timezone_set("Asia/Ho_Chi_Minh");
-    function send_warn_mail($email,$name,$type){
-        $credentials = SendinBlue\Client\Configuration::getDefaultConfiguration()->setApiKey('api-key', SENDINBLUE_API);
-        $apiInstance = new SendinBlue\Client\Api\TransactionalEmailsApi(new GuzzleHttp\Client(),$credentials);
-        if($type=='warning'){
-            $sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail([
-                'subject' => 'A warning from Hoteru!',
-                'sender' => ['name' => 'Hoteru', 'email' => 'contact@hoteru.com'],
-                'to' => [[ 'name' => $name, 'email' => $email]],
-                'htmlContent' => '<html><body> 
-                You have been reporting by lots of user for wrong behaviors while using our service. So we will temporary suspeneded your account, please reply to this mail and we may consider to release your account.  
-                </body></html>',
-                //'params' => ['bodyMessage' => 'made just for you!']
-            ]);
-        }else if($type=='anouce'){
-            $sendSmtpEmail = new \SendinBlue\Client\Model\SendSmtpEmail([
-                'subject' => 'A sad goodbye from Hoteru!',
-                'sender' => ['name' => 'Hoteru', 'email' => 'contact@hoteru.com'],
-                'to' => [[ 'name' => $name, 'email' => $email]],
-                'htmlContent' => '<html><body> 
-                You have been reporting many times by lots of user for wrong behaviors while using our service. We have no choice but to delete your account. We sorry to inform you that, but its may your fault<br>
-                Thank you for trusting our service.
-                </body></html>',
-                //'params' => ['bodyMessage' => 'made just for you!']
-            ]);
-        }
-        try {
-            $result = $apiInstance->sendTransacEmail($sendSmtpEmail);
-            if($result){return 1;}
-            else{return 0;}
-        } catch (Exception $e) {
-            echo $e->getMessage(),PHP_EOL;
-            return 0;
-        }
-    }
+    
     if(isset($_POST['get_users'])){
         $res=selectAll("`user_cred`");
         $i=1;
@@ -95,30 +62,7 @@
             echo 0;
         }
     }
-    if(isset($_POST['warn_user'])){
-        $frm_data = filteration($_POST);
-        $check_q = select("SELECT * FROM `user_cred` WHERE `id`=?",[$frm_data['id']],'i');
-        $row = mysqli_fetch_assoc($check_q);
-        if(!send_warn_mail($row['email'],$row['name'],'warning')){
-            echo 0;
-        }
-        else{
-            echo 1;
-        } 
-    }
-    if(isset($_POST['remove_user'])){
-        $frm_data = filteration($_POST);
-        $check_q = select("SELECT * FROM `user_cred` WHERE `id`=?",[$frm_data['id']],'i');
-        $row = mysqli_fetch_assoc($check_q);
-        deleteImage($row['profile'],USER_FOLDER);
-        $pre_q1 = delete("DELETE FROM `user_cred` WHERE `id`=?",[$frm_data['id']],'i');
-        if(!send_warn_mail($row['email'],$row['name'],'anouce')||!$pre_q1){
-            echo 0;
-        }
-        else{
-            echo 1;
-        } 
-    }
+    
     if(isset($_POST['search_user'])){
         $frm_data = filteration($_POST);
         $q = "SELECT * FROM `user_cred` WHERE `name` LIKE ?";
