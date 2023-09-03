@@ -68,30 +68,5 @@
         echo $table_data;
     }
 
-    if (isset($_POST['assign_room'])){
-        $frm_data=filteration($_POST);
-
-        $query="UPDATE `booking_order` bo 
-        INNER JOIN `booking_details` bd ON bo.booking_id=bd.booking_id
-        SET bo.arrival=?, bd.room_no=?
-        WHERE bo.booking_id=? AND bo.hotel=?";
-
-        $values=[1, $frm_data['room_no'], $frm_data['booking_id'],$_SESSION['adminCode']];
-        $res=update($query, $values, 'isis');
-
-        echo ($res==2) ? 1:0;
-    }
-   
-    if (isset($_POST['cancel_booking'])){
-        $frm_data=filteration($_POST);
-
-        $query="UPDATE `booking_order`
-        SET `booking_status`=?, `refund`=?
-        WHERE `booking_id`=? AND `hotel`=?";
-
-        $values=['cancelled', 0, $frm_data['booking_id'],$_SESSION['adminCode']];
-        $res=update($query, $values, 'siis');
-
-        echo $res;
-    }
+    
 ?>
