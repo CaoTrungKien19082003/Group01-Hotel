@@ -23,6 +23,45 @@
             xhr.send('toggle_status='+id+'&value='+val);
         }
 
+        function warn_user(id) {
+            if(confirm("Are you sure, you want to sent warning to this user account?")){
+                let data = new FormData();
+                data.append('id',id);
+                data.append('warn_user','');
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "ajax/users.php", true);
+                xhr.onload = function() {
+                    if (this.responseText == 1) {
+                        alert('success', 'User warned!');
+                        get_users();
+                    } 
+                    else {
+                        alert('error', 'User warned failed!');
+                    }
+                }
+                xhr.send(data);
+            }
+        }
+        function remove_user(id) {
+            if(confirm("Are you sure, you want to delete this user account?")){
+                let data = new FormData();
+                data.append('id',id);
+                data.append('remove_user','');
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "ajax/users.php", true);
+                xhr.onload = function() {
+                    if (this.responseText == 1) {
+                        alert('success', 'User removed!');
+                        get_users();
+                    } 
+                    else {
+                        alert('error', 'User removed failed!');
+                    }
+                }
+                xhr.send(data);
+            }
+        }
+
         function search_user(username){
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "ajax/users.php", true);
